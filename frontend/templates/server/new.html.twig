@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Nouveau serveur</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        <button type="submit" class="ui primary button">Sauvegarder</button>
+        <a class="ui primary button" href="{{ path('server_index') }}">Retour à la liste</a>
+    {{ form_end(form) }}
+{% endblock %}

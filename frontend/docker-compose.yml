@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+    web:
+        container_name: seedbox_frontend_web
+        build:
+            context: docker/php
+        ports:
+            - 8080:80
+        volumes:
+            - .:/var/www/html
+            - ./docker/php/000-default.conf:/etc/apache2/sites-available/000-default.conf
+        restart: always
+    mariadb:
+        container_name: seedbox_db
+        image: mariadb:latest
+        volumes:
+            - ./docker/mariadb/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=app
+            - MYSQL_USER=test
+            - MYSQL_PASSWORD=test
+        ports:
+            - 3307:3306
+        links:
+            - web
+        depends_on:
+            - web
+        restart: always

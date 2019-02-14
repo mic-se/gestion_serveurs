@@ -1,0 +1,13 @@
+frontend/.env.local
+frontend/.env
+frontend/.env.local.php
+frontend/.env.*.local
+frontend/public/bundles/
+frontend/public/uploads/
+frontend/var/
+frontend/vendor/
+frontend/.phpunit
+frontend/phpunit.xml
+frontend/.web-server-pid
+
+api/node_modules

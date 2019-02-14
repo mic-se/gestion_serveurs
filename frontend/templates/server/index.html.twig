@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Liste des serveurs</h1>
+
+{% for message in app.flashes('error') %}
+    <div class="ui negative message">
+        <p>{{ message }}</p>
+    </div>
+{% endfor %}
+
+<table class="ui celled table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>État</th>
+            <th>Date de création</th>
+            <th>Informations réseau</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for id, server in servers %}
+        <tr>
+            <td>
+                {% for name in server.name %}
+                {{ name }}
+                {% if not loop.last %}
+                <br />
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ server['state'] }}</td>
+            <td>{{ server['creation_date'] }}</td>
+            <td>
+                {% for ip in server.ips if server.ips|length > 0 %}
+                IP: {{ ip }}<br />
+                {% endfor %}
+            </td>
+            <td>
+                {% if server['state'] == 'exited' or server['state'] == 'created' %}
+                <a title="Démarrer" href="{{ path('server_start', {'id': id}) }}"><i class="icon play large"></i></a>
+                <a title="Supprimer" href="{{ path('server_delete', {'id': id}) }}"><i class="icon trash large"></i></a>
+                {% endif %}
+
+                {% if server['state'] == 'running' %}
+                <a title="Stop" href="{{ path('server_stop', {'id': id}) }}"><i class="icon stop large"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">Pas de serveur trouvé</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('server_new') }}" class="ui button primary">Ajouter serveur</a>
+{% endblock %}
