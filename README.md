@@ -1,5 +1,8 @@
 # Gestion de serveurs Web en PHP/Symfony
 
+## Architecture
+![Architecture](relative/doc/architecture.jpg?raw=true "Architecture")
+
 ## Prérequis
 Docker et node doivent être installés
 
@@ -25,9 +28,6 @@ sudo systemctl restart docker
 ```bash
 ./install.sh
 ```
-
-### Configurer l'application
-Modifier la ligne : API_URL=http://VOTRE_IP_LOCALE:3000
 
 ### Utilisateur de test pour le frontend :
 http://localhost:8088
