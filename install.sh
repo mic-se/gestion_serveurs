@@ -2,12 +2,9 @@
 
 cd frontend
 
-# build
 docker-compose build
-
-# install
+docker-compose up -d
 docker-compose exec -u www-data web composer install
-
 
 # env
 if [ ! -f .env ]; then
@@ -16,3 +13,4 @@ fi
 
 cd ../api
 npm install
+port=4545 node index.js

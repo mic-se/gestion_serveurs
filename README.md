@@ -29,14 +29,7 @@ sudo systemctl restart docker
 ### Configurer l'application
 Modifier la ligne : API_URL=http://VOTRE_IP_LOCALE:3000
 
-### Lancer l'application
-
-```bash
-docker-compose -f frontend/docker-compose.yml up -d
-node api/index.js
-```
-
 ### Utilisateur de test pour le frontend :
-http://localhost:8080
+http://localhost:8088
 
 - Nom : user1/ Mot de passe : user1

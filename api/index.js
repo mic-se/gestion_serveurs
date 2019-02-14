@@ -36,18 +36,6 @@ app.get('/servers/', (req, res) => {
     });
 });
 
-app.get('/servers/:id', (req, res) => {
-    dockerClient.listContainers({all: true, filters: {id: [req.params.id]}}, function (err, container) {
-        if (err) {
-            return res.status(400).json(err.reason);
-        }
-
-        data = utils.formatContainer(container);
-
-        return res.status(200).json(data);
-    });
-});
-
 app.get('/servers/:id/start', (req, res) => {
     dockerClient.getContainer(req.params.id).start(function(err, data) {
         if (err) {
@@ -59,12 +47,18 @@ app.get('/servers/:id/start', (req, res) => {
 });
 
 app.get('/servers/:id/stop', (req, res) => {
-    dockerClient.getContainer(req.params.id).stop(function(err, data) {
-        if (err) {
-            return res.status(400).json(err.reason);
+    dockerClient.listContainers({all: true, filters: {id: [req.params.id]}}, function (err, container) {
+        if (container[0].Names.indexOf('/seedbox_db') != -1 || container[0].Names.indexOf('/seedbox_frontend_web') != -1) {
+            return res.status(400).json('Ce serveur ne peut être arrêté');
         }
 
-        return res.status(200).json();
+        dockerClient.getContainer(req.params.id).stop(function(err, data) {
+            if (err) {
+                return res.status(400).json(err.reason);
+            }
+
+            return res.status(200).json();
+        });
     });
 });
 

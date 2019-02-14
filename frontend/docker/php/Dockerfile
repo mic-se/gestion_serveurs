@@ -10,17 +10,13 @@ RUN apt-get update && apt-get install -y \
         curl \
         wget \
         libicu-dev \
-        librabbitmq-dev \
     && docker-php-ext-install -j$(nproc) iconv \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) zip \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-configure intl \
-    && docker-php-ext-install intl \
-    && docker-php-ext-install bcmath sockets \
-    && pecl install amqp \
-    && docker-php-ext-enable amqp
+    && docker-php-ext-install intl
 
 RUN pecl install xdebug-2.7.0beta1 \
     && docker-php-ext-enable xdebug

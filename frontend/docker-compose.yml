@@ -6,7 +6,7 @@ services:
         build:
             context: docker/php
         ports:
-            - 8080:80
+            - 8088:80
         volumes:
             - .:/var/www/html
             - ./docker/php/000-default.conf:/etc/apache2/sites-available/000-default.conf
@@ -22,7 +22,7 @@ services:
             - MYSQL_USER=test
             - MYSQL_PASSWORD=test
         ports:
-            - 3307:3306
+            - 3309:3306
         links:
             - web
         depends_on:

@@ -55,13 +55,10 @@ class ServerController extends AbstractController
         return $this->redirectToRoute('server_index');
     }
 
-    /**
-     * @Route("/start/{id}", name="server_start", methods={"GET"})
-     */
-    public function start(Request $request, $id): Response
+    private function handleStartStop($action, $id)
     {
         $headers = array('Accept' => 'application/json');
-        $response = \Unirest\Request::get($this->getParameter('api_url').'/servers/'.$id.'/start', $headers);
+        $response = \Unirest\Request::get($this->getParameter('api_url').'/servers/'.$id.'/'.$action, $headers);
 
         if ($response->code != 200) {
             if (!empty($response->body)) {
@@ -70,6 +67,14 @@ class ServerController extends AbstractController
                 $this->addFlash('error', 'Une erreur est survenue');
             }
         }
+    }
+
+    /**
+     * @Route("/start/{id}", name="server_start", methods={"GET"})
+     */
+    public function start(Request $request, $id): Response
+    {
+        $this->handleStartStop('start', $id);
 
         return $this->redirectToRoute('server_index');
     }
@@ -79,16 +84,7 @@ class ServerController extends AbstractController
      */
     public function stop(Request $request, $id): Response
     {
-        $headers = array('Accept' => 'application/json');
-        $response = \Unirest\Request::get($this->getParameter('api_url').'/servers/'.$id.'/stop', $headers);
-
-        if ($response->code != 200) {
-            if (!empty($response->body)) {
-                $this->addFlash('error', 'Une erreur est survenue: ' . $response->body);
-            } else {
-                $this->addFlash('error', 'Une erreur est survenue');
-            }
-        }
+        $this->handleStartStop('stop', $id);
         
         return $this->redirectToRoute('server_index');
     }
