@@ -37,4 +37,6 @@ node api/index.js
 ```
 
 ### Utilisateur de test pour le frontend :
+http://localhost:8080
+
 - Nom : user1/ Mot de passe : user1
