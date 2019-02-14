@@ -4,10 +4,6 @@ const cors       = require('cors');
 const docker     = require('dockerode');
 const utils      = require('./utils');
 
-const request = docker({
-    host: '192.168.0.9:5555'
-})
-
 var dockerClient = new docker({host: '127.0.0.1', port: 5555});
 
 const app = express();
