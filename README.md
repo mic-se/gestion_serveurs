@@ -1,7 +1,7 @@
 # Gestion de serveurs Web en PHP/Symfony
 
 ## Architecture
-![Architecture](relative/doc/architecture.jpg?raw=true "Architecture")
+![Architecture](doc/architecture.jpg?raw=true "Architecture")
 
 ## Prérequis
 Docker et node doivent être installés
